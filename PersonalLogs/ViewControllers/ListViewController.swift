@@ -61,7 +61,6 @@ class ListViewController: UIViewController {
     
     //MARK: - ViewController Cycle
     override func loadView() {
-        super.loadView()
         self.view = listView
     }
     

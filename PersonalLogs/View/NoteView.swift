@@ -17,16 +17,16 @@ class NoteView: UIView {
         textField.backgroundColor = .clear
         textField.borderStyle = .none
         textField.adjustsFontSizeToFitWidth = true
-        textField.font = UIFont.systemFont(ofSize: 32, weight: .medium)
+        textField.font = UIFont.systemFont(ofSize: 22, weight: .medium)
         textField.tintColor = .primaryAction
-        textField.minimumFontSize = 22
+        textField.minimumFontSize = 18
         textField.delegate = self
         return textField
     }()
     
     lazy var bodyTextView: UITextView = {
         let textView = UITextView()
-        textView.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        textView.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         textView.backgroundColor = .clear
         textView.textColor = .lightGray
         textView.tintColor = .primaryAction
@@ -36,7 +36,7 @@ class NoteView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .background
+        self.backgroundColor = .backgroundCell
         setupTitleField()
         setupBodyTextView()
     }
@@ -52,7 +52,7 @@ class NoteView: UIView {
             titleField.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             titleField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 25),
             titleField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25),
-            titleField.heightAnchor.constraint(equalToConstant: 100)
+            titleField.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.05)
         ])
     }
     

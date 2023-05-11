@@ -9,7 +9,7 @@
 import Foundation
 
 //MARK: - Repository
-protocol Repository: class {
+protocol Repository: AnyObject {
     
     associatedtype Item: RepositoryItem
     
@@ -52,6 +52,7 @@ extension Repository {
             if let data = FileHelper().retrieveFile(at: fileName) {
                 //decode from Data type to Item type
                 let item = try? JSONDecoder().decode(Item.self, from: data)
+                // TODO: remove body content from here in case its locked
                 return item
             }
             return nil

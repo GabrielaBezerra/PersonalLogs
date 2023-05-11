@@ -13,4 +13,5 @@ extension UIColor {
     static let secundaryAction: UIColor = UIColor(named: "secundaryActionColor")!
     static let text: UIColor = UIColor(named: "textColor")!
     static let background: UIColor = UIColor(named: "backgroundColor")!
+    static let backgroundCell: UIColor = UIColor(named: "backgroundCellColor")!
 }

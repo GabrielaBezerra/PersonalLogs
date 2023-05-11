@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol NoteListDelegate: class {
+protocol NoteListDelegate: AnyObject {
     func didSelectNote(with id: UUID)
     func deleteNote(for id: UUID)
     func askForPasswordToLock(for id: UUID)

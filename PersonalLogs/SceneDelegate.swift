@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     lazy var navigationController: UINavigationController = {
         let navigationController = UINavigationController(rootViewController: ListViewController())
         navigationController.navigationBar.prefersLargeTitles = true
-        navigationController.navigationBar.tintColor = UIColor(named: "primaryActionColor")
+        navigationController.navigationBar.tintColor = .primaryAction
         return navigationController
     }()
     

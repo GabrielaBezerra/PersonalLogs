@@ -35,8 +35,9 @@ class ListView: UIView {
     
     //MARK: - Views
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.backgroundColor = .background
+        tableView.separatorColor = .text.withAlphaComponent(0.25)
         tableView.alwaysBounceVertical = false
         tableView.alwaysBounceHorizontal = false
         tableView.delegate = self
@@ -60,10 +61,10 @@ class ListView: UIView {
         self.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: self.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            tableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 100),
+            tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor)
         ])
         tableView.reloadData()
     }
@@ -96,7 +97,7 @@ extension ListView: UITableViewDataSource, UITableViewDelegate {
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
             cell.detailTextLabel?.numberOfLines = 3
             cell.selectionStyle = .none
-            cell.backgroundColor = .clear
+            cell.backgroundColor = .backgroundCell
             
             cell.textLabel?.text = currentNote.title
             cell.detailTextLabel?.text = currentNote.body
@@ -140,8 +141,8 @@ extension ListView: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-            UIView()
-        }
+//        func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//            UIView()
+//        }
     
 }

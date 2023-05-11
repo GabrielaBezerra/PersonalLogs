@@ -29,7 +29,6 @@ class NoteViewController: UIViewController {
     }
     
     override func loadView() {
-        super.loadView()
         self.view = noteView
     }
     

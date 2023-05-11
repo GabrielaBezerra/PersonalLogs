@@ -20,7 +20,6 @@ class OnBoardingViewController: UIViewController {
     }()
     
     override func loadView() {
-        super.loadView()
         self.view = onBoardingView
     }
     

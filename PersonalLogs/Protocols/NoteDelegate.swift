@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol NoteDelegate: class {
+protocol NoteDelegate: AnyObject {
     func didChange(title: String, body: String)
 }

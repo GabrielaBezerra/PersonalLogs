@@ -9,7 +9,7 @@
 import Foundation
 
 //MARK: - RepositoryItem
-protocol RepositoryItem: class, Codable {
+protocol RepositoryItem: AnyObject, Codable {
     var id: UUID { get }
     var locked: Bool { get set }
     func lock(password: String) -> Bool
