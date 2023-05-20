@@ -17,7 +17,7 @@ class NoteView: UIView {
         textField.backgroundColor = .clear
         textField.borderStyle = .none
         textField.adjustsFontSizeToFitWidth = true
-        textField.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+        textField.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         textField.tintColor = .primaryAction
         textField.minimumFontSize = 18
         textField.delegate = self

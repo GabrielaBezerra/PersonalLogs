@@ -22,11 +22,19 @@ class ListViewController: UIViewController {
         return view
     }()
     
-    lazy var newNoteBarButtonItem: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(newNote))
-        barButton.style = .done
-        return barButton
-    }()
+    lazy var newNoteBarButtonItem: UIBarButtonItem = UIBarButtonItem(
+        image: UIImage(systemName: "plus"),
+        style: .done,
+        target: self,
+        action: #selector(newNote)
+    )
+
+    lazy var onboardingBarButtonItem: UIBarButtonItem = UIBarButtonItem(
+        image: UIImage(systemName: "info"),
+        style: .plain,
+        target: self,
+        action: #selector(showOnboarding)
+    )
     
     //MARK: - Alerts
     func showPasswordAlert(okAction: @escaping (String) -> Void) {
@@ -45,6 +53,19 @@ class ListViewController: UIViewController {
             guard let pass = alert.textFields?.first?.text, !pass.isEmpty else { return }
             okAction(pass)
         }
+        okAction.setValue(UIColor.primaryAction, forKey: "titleTextColor")
+        alert.addAction(okAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showConfirmationAlert(okAction: @escaping () -> Void) {
+        let alert = UIAlertController(title: "This operation cannot be undone", message: "Are you sure you want to continue?", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        alert.addAction(cancelAction)
+
+        let okAction = UIAlertAction(title: "OK", style: .default) { action in okAction() }
         okAction.setValue(UIColor.primaryAction, forKey: "titleTextColor")
         alert.addAction(okAction)
         
@@ -72,6 +93,7 @@ class ListViewController: UIViewController {
 
         //Adding the newNoteBarButtonItem
         navigationItem.rightBarButtonItem = newNoteBarButtonItem
+        navigationItem.leftBarButtonItem = onboardingBarButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +104,10 @@ class ListViewController: UIViewController {
     }
     
     //MARK: - Actions
+    @objc func showOnboarding() {
+        navigationController?.present(OnBoardingViewController(), animated: true)
+    }
+    
     @objc func newNote() {
         if let newNote = noteRepository.createNewItem() {
             showNoteDetail(id: newNote.id)
@@ -103,8 +129,10 @@ extension ListViewController: NoteListDelegate {
     }
     
     func deleteNote(for id: UUID) {
-        noteRepository.delete(id: id)
-        listView.notes = noteRepository.readAllItems()
+        showConfirmationAlert { [weak self] in
+            self?.noteRepository.delete(id: id)
+            self?.listView.notes = self?.noteRepository.readAllItems() ?? []
+        }
     }
     
     func askForPasswordToLock(for id: UUID) {

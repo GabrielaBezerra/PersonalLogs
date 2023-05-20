@@ -93,8 +93,8 @@ extension ListView: UITableViewDataSource, UITableViewDelegate {
             let currentNote = notes[indexPath.row]
             
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 22, weight: .medium)
-            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
             cell.detailTextLabel?.numberOfLines = 3
             cell.selectionStyle = .none
             cell.backgroundColor = .backgroundCell
@@ -109,8 +109,9 @@ extension ListView: UITableViewDataSource, UITableViewDelegate {
             let currentNote = notes[indexPath.row]
             
             let deleteAction = UIContextualAction(style: .destructive, title: "") {
-                [weak self] (action, view, _) in
+                [weak self] (_, _, success) in
                 self?.delegate?.deleteNote(for: currentNote.id)
+                success(true)
             }
             deleteAction.image = UIImage(systemName: "trash.fill")
             
@@ -121,8 +122,9 @@ extension ListView: UITableViewDataSource, UITableViewDelegate {
             let currentNote = notes[indexPath.row]
             
             let lockAction = UIContextualAction(style: .normal, title: "") {
-                [weak self] (action, view, _) in
+                [weak self] (_, _, success) in
                 currentNote.locked ? self?.delegate?.askForPasswordToUnlock(for: currentNote.id) : self?.delegate?.askForPasswordToLock(for: currentNote.id)
+                success(true)
             }
             
             lockAction.backgroundColor = UIColor(named: "primaryActionColor")
@@ -141,8 +143,8 @@ extension ListView: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-//        func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//            UIView()
-//        }
+        func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+            UIView()
+        }
     
 }

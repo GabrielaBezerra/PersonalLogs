@@ -46,7 +46,7 @@ class OnBoardingView: UIView {
         let button = UIButton()
         button.setTitle("START WRITING", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.tintColor = .white
+        button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .primaryAction
         button.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         return button
@@ -65,6 +65,12 @@ class OnBoardingView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        startButton.layer.cornerCurve = .continuous
+        startButton.layer.cornerRadius = 11
     }
     
     func setupConstraints() {
